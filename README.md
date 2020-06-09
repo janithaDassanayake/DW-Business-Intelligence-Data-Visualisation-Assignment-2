@@ -12,6 +12,7 @@
  
 * 3: Demonstration of OLAP operations
 ---------------------------------------------
+
 •	Connect an Excel workbook to the Cube.
 •	By creating pivot tables or pivot charts demonstrate OLAP operations
 o	Roll-up
