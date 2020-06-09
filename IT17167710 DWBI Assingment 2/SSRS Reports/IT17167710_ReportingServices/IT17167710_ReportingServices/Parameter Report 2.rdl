@@ -1,0 +1,1422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily">
+  <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource1">
+      <ConnectionProperties>
+        <DataProvider>OLEDB-MD</DataProvider>
+        <ConnectString>Data Source=DESKTOP-60G552M;Initial Catalog=IT17167710_MultidimensionalProject</ConnectString>
+        <IntegratedSecurity>true</IntegratedSecurity>
+      </ConnectionProperties>
+      <rd:SecurityType>Integrated</rd:SecurityType>
+      <rd:DataSourceID>49fbd59b-99c7-4ee9-bc9d-ab8b4d321f1b</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="OrderDateMonthName">
+            <Value>=Parameters!OrderDateMonthName.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="DimConsumerDetailsState">
+            <Value>=Parameters!DimConsumerDetailsState.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT NON EMPTY { [Measures].[Sub Total], [Measures].[Profit] } ON COLUMNS, NON EMPTY { ([Order Date].[Year].[Year].ALLMEMBERS * [Order Date].[Quarter Name].[Quarter Name].ALLMEMBERS * [Order Date].[Month Name].[Month Name].ALLMEMBERS * [Dim Consumer Details].[Hierarchy].[City].ALLMEMBERS ) } DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_VALUE, MEMBER_UNIQUE_NAME ON ROWS FROM ( SELECT ( STRTOSET(@DimConsumerDetailsState, CONSTRAINED) ) ON COLUMNS FROM ( SELECT ( STRTOSET(@OrderDateMonthName, CONSTRAINED) ) ON COLUMNS FROM [CubeIT17167710 Data Ware House])) WHERE ( IIF( STRTOSET(@DimConsumerDetailsState, CONSTRAINED).Count = 1, STRTOSET(@DimConsumerDetailsState, CONSTRAINED), [Dim Consumer Details].[State].currentmember ) ) CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS</CommandText>
+        <rd:DesignerState>
+          <QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition">
+            <CommandType>MDX</CommandType>
+            <QuerySpecification xsi:type="MDXQuerySpecification">
+              <Select>
+                <Items>
+                  <Item>
+                    <ID xsi:type="Level">
+                      <DimensionName>Order Date</DimensionName>
+                      <HierarchyName>Year</HierarchyName>
+                      <HierarchyUniqueName>[Order Date].[Year]</HierarchyUniqueName>
+                      <LevelName>Year</LevelName>
+                      <UniqueName>[Order Date].[Year].[Year]</UniqueName>
+                    </ID>
+                    <ItemCaption>Year</ItemCaption>
+                    <UniqueName>true</UniqueName>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Level">
+                      <DimensionName>Order Date</DimensionName>
+                      <HierarchyName>Quarter Name</HierarchyName>
+                      <HierarchyUniqueName>[Order Date].[Quarter Name]</HierarchyUniqueName>
+                      <LevelName>Quarter Name</LevelName>
+                      <UniqueName>[Order Date].[Quarter Name].[Quarter Name]</UniqueName>
+                    </ID>
+                    <ItemCaption>Quarter Name</ItemCaption>
+                    <UniqueName>true</UniqueName>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Level">
+                      <DimensionName>Order Date</DimensionName>
+                      <HierarchyName>Month Name</HierarchyName>
+                      <HierarchyUniqueName>[Order Date].[Month Name]</HierarchyUniqueName>
+                      <LevelName>Month Name</LevelName>
+                      <UniqueName>[Order Date].[Month Name].[Month Name]</UniqueName>
+                    </ID>
+                    <ItemCaption>Month Name</ItemCaption>
+                    <UniqueName>true</UniqueName>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Level">
+                      <DimensionName>Dim Consumer Details</DimensionName>
+                      <HierarchyName>Hierarchy</HierarchyName>
+                      <HierarchyUniqueName>[Dim Consumer Details].[Hierarchy]</HierarchyUniqueName>
+                      <LevelName>Country</LevelName>
+                      <UniqueName>[Dim Consumer Details].[Hierarchy].[Country]</UniqueName>
+                    </ID>
+                    <ItemCaption>Country</ItemCaption>
+                    <UniqueName>true</UniqueName>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Level">
+                      <DimensionName>Dim Consumer Details</DimensionName>
+                      <HierarchyName>Hierarchy</HierarchyName>
+                      <HierarchyUniqueName>[Dim Consumer Details].[Hierarchy]</HierarchyUniqueName>
+                      <LevelName>Region</LevelName>
+                      <UniqueName>[Dim Consumer Details].[Hierarchy].[Region]</UniqueName>
+                    </ID>
+                    <ItemCaption>Region</ItemCaption>
+                    <UniqueName>true</UniqueName>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Level">
+                      <DimensionName>Dim Consumer Details</DimensionName>
+                      <HierarchyName>Hierarchy</HierarchyName>
+                      <HierarchyUniqueName>[Dim Consumer Details].[Hierarchy]</HierarchyUniqueName>
+                      <LevelName>State</LevelName>
+                      <UniqueName>[Dim Consumer Details].[Hierarchy].[State]</UniqueName>
+                    </ID>
+                    <ItemCaption>State</ItemCaption>
+                    <UniqueName>true</UniqueName>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Level">
+                      <DimensionName>Dim Consumer Details</DimensionName>
+                      <HierarchyName>Hierarchy</HierarchyName>
+                      <HierarchyUniqueName>[Dim Consumer Details].[Hierarchy]</HierarchyUniqueName>
+                      <LevelName>City</LevelName>
+                      <UniqueName>[Dim Consumer Details].[Hierarchy].[City]</UniqueName>
+                    </ID>
+                    <ItemCaption>City</ItemCaption>
+                    <UniqueName>true</UniqueName>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Measure">
+                      <MeasureName>Sub Total</MeasureName>
+                      <UniqueName>[Measures].[Sub Total]</UniqueName>
+                    </ID>
+                    <ItemCaption>Sub Total</ItemCaption>
+                    <BackColor>true</BackColor>
+                    <ForeColor>true</ForeColor>
+                    <FontFamily>true</FontFamily>
+                    <FontSize>true</FontSize>
+                    <FontWeight>true</FontWeight>
+                    <FontStyle>true</FontStyle>
+                    <FontDecoration>true</FontDecoration>
+                    <FormattedValue>true</FormattedValue>
+                    <FormatString>true</FormatString>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Measure">
+                      <MeasureName>Profit</MeasureName>
+                      <UniqueName>[Measures].[Profit]</UniqueName>
+                    </ID>
+                    <ItemCaption>Profit</ItemCaption>
+                    <BackColor>true</BackColor>
+                    <ForeColor>true</ForeColor>
+                    <FontFamily>true</FontFamily>
+                    <FontSize>true</FontSize>
+                    <FontWeight>true</FontWeight>
+                    <FontStyle>true</FontStyle>
+                    <FontDecoration>true</FontDecoration>
+                    <FormattedValue>true</FormattedValue>
+                    <FormatString>true</FormatString>
+                  </Item>
+                </Items>
+              </Select>
+              <AutoExecute>false</AutoExecute>
+              <From>CubeIT17167710 Data Ware House</From>
+              <Filter>
+                <FilterItems>
+                  <FilterItem>
+                    <HierarchyUniqueName>[Order Date].[Month Name]</HierarchyUniqueName>
+                    <Condition xsi:type="EqualTo">
+                      <Members>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].&amp;[January]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].&amp;[February]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].&amp;[March]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].&amp;[April]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].&amp;[June]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].&amp;[July]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].&amp;[December]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].&amp;[August]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].&amp;[May]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].&amp;[November]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].&amp;[October]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].&amp;[September]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Order Date].[Month Name].[All]</MemberUniqueName>
+                        </Member>
+                      </Members>
+                      <Parametrized>true</Parametrized>
+                    </Condition>
+                  </FilterItem>
+                  <FilterItem>
+                    <HierarchyUniqueName>[Dim Consumer Details].[State]</HierarchyUniqueName>
+                    <Condition xsi:type="EqualTo">
+                      <Members>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Alabama]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Arizona]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Arkansas]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[California]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Connecticut]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Colorado]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Delaware]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[District of Columbia]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Florida]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Georgia]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Illinois]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Indiana]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Iowa]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Kansas]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Kentucky]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Louisiana]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Maryland]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Michigan]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Minnesota]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Massachusetts]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Mississippi]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Missouri]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Nebraska]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Nevada]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[New Hampshire]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[New Jersey]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[New Mexico]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[New York]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[North Carolina]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Ohio]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Oklahoma]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Oregon]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Pennsylvania]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Rhode Island]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[South Dakota]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Tennessee]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Texas]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Utah]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Virginia]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Washington]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].&amp;[Wisconsin]</MemberUniqueName>
+                        </Member>
+                        <Member>
+                          <MemberUniqueName>[Dim Consumer Details].[State].[All]</MemberUniqueName>
+                        </Member>
+                      </Members>
+                      <Parametrized>true</Parametrized>
+                    </Condition>
+                  </FilterItem>
+                </FilterItems>
+              </Filter>
+              <Calculations />
+              <Aggregates />
+              <QueryProperties>
+                <IncludeMemberValue>true</IncludeMemberValue>
+              </QueryProperties>
+            </QuerySpecification>
+            <Query>
+              <Statement> SELECT NON EMPTY { [Measures].[Sub Total], [Measures].[Profit] } ON COLUMNS, NON EMPTY { ([Order Date].[Year].[Year].ALLMEMBERS * [Order Date].[Quarter Name].[Quarter Name].ALLMEMBERS * [Order Date].[Month Name].[Month Name].ALLMEMBERS * [Dim Consumer Details].[Hierarchy].[City].ALLMEMBERS ) } DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_VALUE, MEMBER_UNIQUE_NAME ON ROWS FROM ( SELECT ( STRTOSET(@DimConsumerDetailsState, CONSTRAINED) ) ON COLUMNS FROM ( SELECT ( STRTOSET(@OrderDateMonthName, CONSTRAINED) ) ON COLUMNS FROM [CubeIT17167710 Data Ware House])) WHERE ( IIF( STRTOSET(@DimConsumerDetailsState, CONSTRAINED).Count = 1, STRTOSET(@DimConsumerDetailsState, CONSTRAINED), [Dim Consumer Details].[State].currentmember ) ) CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS</Statement>
+              <ParameterDefinitions>
+                <ParameterDefinition>
+                  <Name>OrderDateMonthName</Name>
+                  <DefaultValues>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[January]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[February]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[March]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[April]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[June]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[July]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[December]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[August]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[May]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[November]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[October]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[September]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].[All]</DefaultValue>
+                  </DefaultValues>
+                  <Caption>Order Date.Month Name</Caption>
+                  <HierarchyUniqueName>[Order Date].[Month Name]</HierarchyUniqueName>
+                  <ParameterValuesQuery>
+                    <Statement>WITH MEMBER [Measures].[ParameterCaption] AS [Order Date].[Month Name].CURRENTMEMBER.MEMBER_CAPTION MEMBER [Measures].[ParameterValue] AS [Order Date].[Month Name].CURRENTMEMBER.UNIQUENAME MEMBER [Measures].[ParameterLevel] AS [Order Date].[Month Name].CURRENTMEMBER.LEVEL.ORDINAL SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Order Date].[Month Name].ALLMEMBERS ON ROWS FROM [CubeIT17167710 Data Ware House]</Statement>
+                    <ParameterizedStatement>
+                      <ReferencedParameters />
+                    </ParameterizedStatement>
+                  </ParameterValuesQuery>
+                  <MultipleValues>true</MultipleValues>
+                </ParameterDefinition>
+                <ParameterDefinition>
+                  <Name>DimConsumerDetailsState</Name>
+                  <DefaultValues>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Alabama]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Arizona]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Arkansas]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[California]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Connecticut]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Colorado]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Delaware]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[District of Columbia]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Florida]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Georgia]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Illinois]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Indiana]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Iowa]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Kansas]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Kentucky]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Louisiana]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Maryland]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Michigan]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Minnesota]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Massachusetts]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Mississippi]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Missouri]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Nebraska]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Nevada]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[New Hampshire]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[New Jersey]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[New Mexico]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[New York]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[North Carolina]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Ohio]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Oklahoma]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Oregon]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Pennsylvania]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Rhode Island]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[South Dakota]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Tennessee]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Texas]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Utah]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Virginia]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Washington]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].&amp;[Wisconsin]</DefaultValue>
+                    <DefaultValue>[Dim Consumer Details].[State].[All]</DefaultValue>
+                  </DefaultValues>
+                  <Caption>State</Caption>
+                  <HierarchyUniqueName>[Dim Consumer Details].[State]</HierarchyUniqueName>
+                  <ParameterValuesQuery>
+                    <Statement>WITH MEMBER [Measures].[ParameterCaption] AS [Dim Consumer Details].[State].CURRENTMEMBER.MEMBER_CAPTION MEMBER [Measures].[ParameterValue] AS [Dim Consumer Details].[State].CURRENTMEMBER.UNIQUENAME MEMBER [Measures].[ParameterLevel] AS [Dim Consumer Details].[State].CURRENTMEMBER.LEVEL.ORDINAL SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Consumer Details].[State].ALLMEMBERS ON ROWS FROM ( SELECT ( STRTOSET(@OrderDateMonthName, CONSTRAINED) ) ON COLUMNS FROM [CubeIT17167710 Data Ware House])</Statement>
+                    <ParameterizedStatement>
+                      <Statement>WITH MEMBER [Measures].[ParameterCaption] AS [Dim Consumer Details].[State].CURRENTMEMBER.MEMBER_CAPTION MEMBER [Measures].[ParameterValue] AS [Dim Consumer Details].[State].CURRENTMEMBER.UNIQUENAME MEMBER [Measures].[ParameterLevel] AS [Dim Consumer Details].[State].CURRENTMEMBER.LEVEL.ORDINAL SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Consumer Details].[State].ALLMEMBERS ON ROWS FROM ( SELECT ( STRTOSET(@OrderDateMonthName, CONSTRAINED) ) ON COLUMNS FROM [CubeIT17167710 Data Ware House])</Statement>
+                      <ReferencedParameters>
+                        <ReferencedParameter>
+                          <Name>OrderDateMonthName</Name>
+                        </ReferencedParameter>
+                      </ReferencedParameters>
+                    </ParameterizedStatement>
+                  </ParameterValuesQuery>
+                  <MultipleValues>true</MultipleValues>
+                </ParameterDefinition>
+              </ParameterDefinitions>
+            </Query>
+          </QueryDefinition>
+        </rd:DesignerState>
+      </Query>
+      <Fields>
+        <Field Name="Year">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Order Date].[Year].[Year]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Quarter_Name">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Order Date].[Quarter Name].[Quarter Name]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Month_Name">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Order Date].[Month Name].[Month Name]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Country">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Consumer Details].[Hierarchy].[Country]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Region">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Consumer Details].[Hierarchy].[Region]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="State">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Consumer Details].[Hierarchy].[State]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="City">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Consumer Details].[Hierarchy].[City]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Sub_Total">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[Sub Total]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Profit">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[Profit]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="OrderDateMonthName">
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS [Order Date].[Month Name].CURRENTMEMBER.MEMBER_CAPTION MEMBER [Measures].[ParameterValue] AS [Order Date].[Month Name].CURRENTMEMBER.UNIQUENAME MEMBER [Measures].[ParameterLevel] AS [Order Date].[Month Name].CURRENTMEMBER.LEVEL.ORDINAL SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Order Date].[Month Name].ALLMEMBERS ON ROWS FROM [CubeIT17167710 Data Ware House]</CommandText>
+        <rd:DesignerState>
+          <QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition">
+            <CommandType>MDX</CommandType>
+            <Type>Query</Type>
+            <QuerySpecification xsi:type="MDXQuerySpecification">
+              <Select>
+                <Items>
+                  <Item>
+                    <ID xsi:type="Measure">
+                      <MeasureName>ParameterCaption</MeasureName>
+                      <UniqueName>[Measures].[ParameterCaption]</UniqueName>
+                    </ID>
+                    <ItemCaption>ParameterCaption</ItemCaption>
+                    <FormattedValue>true</FormattedValue>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Measure">
+                      <MeasureName>ParameterValue</MeasureName>
+                      <UniqueName>[Measures].[ParameterValue]</UniqueName>
+                    </ID>
+                    <ItemCaption>ParameterValue</ItemCaption>
+                    <FormattedValue>true</FormattedValue>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Measure">
+                      <MeasureName>ParameterLevel</MeasureName>
+                      <UniqueName>[Measures].[ParameterLevel]</UniqueName>
+                    </ID>
+                    <ItemCaption>ParameterLevel</ItemCaption>
+                    <FormattedValue>true</FormattedValue>
+                  </Item>
+                </Items>
+              </Select>
+              <AutoExecute>false</AutoExecute>
+              <From>CubeIT17167710 Data Ware House</From>
+              <Filter>
+                <FilterItems />
+              </Filter>
+              <Calculations />
+              <Aggregates />
+              <QueryProperties />
+            </QuerySpecification>
+            <Query>
+              <Statement>WITH MEMBER [Measures].[ParameterCaption] AS [Order Date].[Month Name].CURRENTMEMBER.MEMBER_CAPTION MEMBER [Measures].[ParameterValue] AS [Order Date].[Month Name].CURRENTMEMBER.UNIQUENAME MEMBER [Measures].[ParameterLevel] AS [Order Date].[Month Name].CURRENTMEMBER.LEVEL.ORDINAL SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Order Date].[Month Name].ALLMEMBERS ON ROWS FROM [CubeIT17167710 Data Ware House]</Statement>
+              <ParameterDefinitions />
+            </Query>
+          </QueryDefinition>
+        </rd:DesignerState>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+      <Fields>
+        <Field Name="ParameterCaption">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ParameterValue">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ParameterLevel">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ParameterCaptionIndented">
+          <Value>=Space(3*Fields!ParameterLevel.Value) + Fields!ParameterCaption.Value</Value>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="DimConsumerDetailsState">
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="OrderDateMonthName">
+            <Value>=Parameters!OrderDateMonthName.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS [Dim Consumer Details].[State].CURRENTMEMBER.MEMBER_CAPTION MEMBER [Measures].[ParameterValue] AS [Dim Consumer Details].[State].CURRENTMEMBER.UNIQUENAME MEMBER [Measures].[ParameterLevel] AS [Dim Consumer Details].[State].CURRENTMEMBER.LEVEL.ORDINAL SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Consumer Details].[State].ALLMEMBERS ON ROWS FROM ( SELECT ( STRTOSET(@OrderDateMonthName, CONSTRAINED) ) ON COLUMNS FROM [CubeIT17167710 Data Ware House])</CommandText>
+        <rd:DesignerState>
+          <QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition">
+            <CommandType>MDX</CommandType>
+            <Type>Query</Type>
+            <QuerySpecification xsi:type="MDXQuerySpecification">
+              <Select>
+                <Items>
+                  <Item>
+                    <ID xsi:type="Measure">
+                      <MeasureName>ParameterCaption</MeasureName>
+                      <UniqueName>[Measures].[ParameterCaption]</UniqueName>
+                    </ID>
+                    <ItemCaption>ParameterCaption</ItemCaption>
+                    <FormattedValue>true</FormattedValue>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Measure">
+                      <MeasureName>ParameterValue</MeasureName>
+                      <UniqueName>[Measures].[ParameterValue]</UniqueName>
+                    </ID>
+                    <ItemCaption>ParameterValue</ItemCaption>
+                    <FormattedValue>true</FormattedValue>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Measure">
+                      <MeasureName>ParameterLevel</MeasureName>
+                      <UniqueName>[Measures].[ParameterLevel]</UniqueName>
+                    </ID>
+                    <ItemCaption>ParameterLevel</ItemCaption>
+                    <FormattedValue>true</FormattedValue>
+                  </Item>
+                </Items>
+              </Select>
+              <AutoExecute>false</AutoExecute>
+              <From>CubeIT17167710 Data Ware House</From>
+              <Filter>
+                <FilterItems />
+              </Filter>
+              <Calculations />
+              <Aggregates />
+              <QueryProperties />
+            </QuerySpecification>
+            <Query>
+              <Statement>WITH MEMBER [Measures].[ParameterCaption] AS [Dim Consumer Details].[State].CURRENTMEMBER.MEMBER_CAPTION MEMBER [Measures].[ParameterValue] AS [Dim Consumer Details].[State].CURRENTMEMBER.UNIQUENAME MEMBER [Measures].[ParameterLevel] AS [Dim Consumer Details].[State].CURRENTMEMBER.LEVEL.ORDINAL SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Consumer Details].[State].ALLMEMBERS ON ROWS FROM ( SELECT ( STRTOSET(@OrderDateMonthName, CONSTRAINED) ) ON COLUMNS FROM [CubeIT17167710 Data Ware House])</Statement>
+              <ParameterDefinitions>
+                <ParameterDefinition>
+                  <Name>OrderDateMonthName</Name>
+                  <DefaultValues>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[January]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[February]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[March]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[April]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[June]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[July]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[December]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[August]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[May]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[November]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[October]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].&amp;[September]</DefaultValue>
+                    <DefaultValue>[Order Date].[Month Name].[All]</DefaultValue>
+                  </DefaultValues>
+                  <Caption>Order Date.Month Name</Caption>
+                  <HierarchyUniqueName>[Order Date].[Month Name]</HierarchyUniqueName>
+                  <ParameterValuesQuery>
+                    <Statement>WITH MEMBER [Measures].[ParameterCaption] AS [Order Date].[Month Name].CURRENTMEMBER.MEMBER_CAPTION MEMBER [Measures].[ParameterValue] AS [Order Date].[Month Name].CURRENTMEMBER.UNIQUENAME MEMBER [Measures].[ParameterLevel] AS [Order Date].[Month Name].CURRENTMEMBER.LEVEL.ORDINAL SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Order Date].[Month Name].ALLMEMBERS ON ROWS FROM [CubeIT17167710 Data Ware House]</Statement>
+                    <ParameterizedStatement>
+                      <ReferencedParameters />
+                    </ParameterizedStatement>
+                  </ParameterValuesQuery>
+                  <MultipleValues>true</MultipleValues>
+                </ParameterDefinition>
+              </ParameterDefinitions>
+            </Query>
+          </QueryDefinition>
+        </rd:DesignerState>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+      <Fields>
+        <Field Name="ParameterCaption">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ParameterValue">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ParameterLevel">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ParameterCaptionIndented">
+          <Value>=Space(3*Fields!ParameterLevel.Value) + Fields!ParameterCaption.Value</Value>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="textbox1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Date(month) and Location( state) wise Parameterized Report </Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>textbox1</rd:DefaultName>
+            <Height>0.43in</Height>
+            <Width>6in</Width>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Tablix Name="matrix1">
+            <TablixCorner>
+              <TablixCornerRows>
+                <TablixCornerRow>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="textbox4">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value />
+                                <Style>
+                                  <Color>#333333</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>textbox4</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                      <ColSpan>4</ColSpan>
+                      <RowSpan>4</RowSpan>
+                    </CellContents>
+                  </TablixCornerCell>
+                  <TablixCornerCell />
+                  <TablixCornerCell />
+                  <TablixCornerCell />
+                </TablixCornerRow>
+                <TablixCornerRow>
+                  <TablixCornerCell />
+                  <TablixCornerCell />
+                  <TablixCornerCell />
+                  <TablixCornerCell />
+                </TablixCornerRow>
+                <TablixCornerRow>
+                  <TablixCornerCell />
+                  <TablixCornerCell />
+                  <TablixCornerCell />
+                  <TablixCornerCell />
+                </TablixCornerRow>
+                <TablixCornerRow>
+                  <TablixCornerCell />
+                  <TablixCornerCell />
+                  <TablixCornerCell />
+                  <TablixCornerCell />
+                </TablixCornerRow>
+              </TablixCornerRows>
+            </TablixCorner>
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>1in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1in</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.21in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="textbox2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!Sub_Total.Value)</Value>
+                                  <Style>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>textbox2</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                            </Border>
+                            <BottomBorder>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <BackgroundColor>Pink</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                      <DataElementOutput>Output</DataElementOutput>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="textbox3">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!Profit.Value)</Value>
+                                  <Style>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>textbox3</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                            </Border>
+                            <BottomBorder>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <BackgroundColor>LightSteelBlue</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                      <DataElementOutput>Output</DataElementOutput>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="matrix1_Year">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!Year.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!Year.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <TablixHeader>
+                    <Size>0.21in</Size>
+                    <CellContents>
+                      <Textbox Name="Year">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>=Fields!Year.Value</Value>
+                                <Style />
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Year</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                          </Border>
+                          <BackgroundColor>LightBlue</BackgroundColor>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <TablixMembers>
+                    <TablixMember>
+                      <Group Name="matrix1_Quarter_Name">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!Quarter_Name.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
+                      <SortExpressions>
+                        <SortExpression>
+                          <Value>=Fields!Quarter_Name.Value</Value>
+                        </SortExpression>
+                      </SortExpressions>
+                      <TablixHeader>
+                        <Size>0.21in</Size>
+                        <CellContents>
+                          <Textbox Name="Quarter_Name">
+                            <CanGrow>true</CanGrow>
+                            <KeepTogether>true</KeepTogether>
+                            <Paragraphs>
+                              <Paragraph>
+                                <TextRuns>
+                                  <TextRun>
+                                    <Value>=Fields!Quarter_Name.Value</Value>
+                                    <Style />
+                                  </TextRun>
+                                </TextRuns>
+                                <Style>
+                                  <TextAlign>Center</TextAlign>
+                                </Style>
+                              </Paragraph>
+                            </Paragraphs>
+                            <rd:DefaultName>Quarter_Name</rd:DefaultName>
+                            <Style>
+                              <Border>
+                                <Color>LightGrey</Color>
+                              </Border>
+                              <BackgroundColor>Pink</BackgroundColor>
+                              <PaddingLeft>2pt</PaddingLeft>
+                              <PaddingRight>2pt</PaddingRight>
+                              <PaddingTop>2pt</PaddingTop>
+                              <PaddingBottom>2pt</PaddingBottom>
+                            </Style>
+                          </Textbox>
+                        </CellContents>
+                      </TablixHeader>
+                      <TablixMembers>
+                        <TablixMember>
+                          <Group Name="matrix1_Month_Name">
+                            <GroupExpressions>
+                              <GroupExpression>=Fields!Month_Name.Value</GroupExpression>
+                            </GroupExpressions>
+                          </Group>
+                          <SortExpressions>
+                            <SortExpression>
+                              <Value>=Fields!Month_Name.Value</Value>
+                            </SortExpression>
+                          </SortExpressions>
+                          <TablixHeader>
+                            <Size>0.21in</Size>
+                            <CellContents>
+                              <Textbox Name="Month_Name">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value>=Fields!Month_Name.Value</Value>
+                                        <Style />
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style>
+                                      <TextAlign>Center</TextAlign>
+                                    </Style>
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>Month_Name</rd:DefaultName>
+                                <Style>
+                                  <Border>
+                                    <Color>LightGrey</Color>
+                                  </Border>
+                                  <BackgroundColor>Khaki</BackgroundColor>
+                                  <PaddingLeft>2pt</PaddingLeft>
+                                  <PaddingRight>2pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
+                          <TablixMembers>
+                            <TablixMember>
+                              <TablixHeader>
+                                <Size>0.22in</Size>
+                                <CellContents>
+                                  <Textbox Name="textbox5">
+                                    <CanGrow>true</CanGrow>
+                                    <KeepTogether>true</KeepTogether>
+                                    <Paragraphs>
+                                      <Paragraph>
+                                        <TextRuns>
+                                          <TextRun>
+                                            <Value>Sub Total</Value>
+                                            <Style>
+                                              <FontSize>11pt</FontSize>
+                                              <FontWeight>Bold</FontWeight>
+                                              <Color>#666666</Color>
+                                            </Style>
+                                          </TextRun>
+                                        </TextRuns>
+                                        <Style>
+                                          <TextAlign>Right</TextAlign>
+                                        </Style>
+                                      </Paragraph>
+                                    </Paragraphs>
+                                    <rd:DefaultName>textbox5</rd:DefaultName>
+                                    <Style>
+                                      <Border>
+                                        <Color>LightGrey</Color>
+                                      </Border>
+                                      <BottomBorder>
+                                        <Style>Solid</Style>
+                                      </BottomBorder>
+                                      <BackgroundColor>Pink</BackgroundColor>
+                                      <PaddingLeft>2pt</PaddingLeft>
+                                      <PaddingRight>2pt</PaddingRight>
+                                      <PaddingTop>2pt</PaddingTop>
+                                      <PaddingBottom>2pt</PaddingBottom>
+                                    </Style>
+                                  </Textbox>
+                                </CellContents>
+                              </TablixHeader>
+                              <KeepTogether>true</KeepTogether>
+                            </TablixMember>
+                            <TablixMember>
+                              <TablixHeader>
+                                <Size>0.22in</Size>
+                                <CellContents>
+                                  <Textbox Name="textbox6">
+                                    <CanGrow>true</CanGrow>
+                                    <KeepTogether>true</KeepTogether>
+                                    <Paragraphs>
+                                      <Paragraph>
+                                        <TextRuns>
+                                          <TextRun>
+                                            <Value>Profit</Value>
+                                            <Style>
+                                              <FontSize>11pt</FontSize>
+                                              <FontWeight>Bold</FontWeight>
+                                              <Color>#666666</Color>
+                                            </Style>
+                                          </TextRun>
+                                        </TextRuns>
+                                        <Style>
+                                          <TextAlign>Right</TextAlign>
+                                        </Style>
+                                      </Paragraph>
+                                    </Paragraphs>
+                                    <rd:DefaultName>textbox6</rd:DefaultName>
+                                    <Style>
+                                      <Border>
+                                        <Color>LightGrey</Color>
+                                      </Border>
+                                      <BottomBorder>
+                                        <Style>Solid</Style>
+                                      </BottomBorder>
+                                      <BackgroundColor>PaleTurquoise</BackgroundColor>
+                                      <PaddingLeft>2pt</PaddingLeft>
+                                      <PaddingRight>2pt</PaddingRight>
+                                      <PaddingTop>2pt</PaddingTop>
+                                      <PaddingBottom>2pt</PaddingBottom>
+                                    </Style>
+                                  </Textbox>
+                                </CellContents>
+                              </TablixHeader>
+                              <KeepTogether>true</KeepTogether>
+                            </TablixMember>
+                          </TablixMembers>
+                          <Visibility>
+                            <Hidden>true</Hidden>
+                            <ToggleItem>Quarter_Name</ToggleItem>
+                          </Visibility>
+                          <DataElementOutput>Output</DataElementOutput>
+                          <KeepTogether>true</KeepTogether>
+                        </TablixMember>
+                      </TablixMembers>
+                      <Visibility>
+                        <Hidden>true</Hidden>
+                        <ToggleItem>Year</ToggleItem>
+                      </Visibility>
+                      <DataElementOutput>Output</DataElementOutput>
+                    </TablixMember>
+                  </TablixMembers>
+                  <DataElementOutput>Output</DataElementOutput>
+                </TablixMember>
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="matrix1_Region">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!Region.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!Region.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <TablixHeader>
+                    <Size>1in</Size>
+                    <CellContents>
+                      <Textbox Name="Region">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>=Fields!Country.Value</Value>
+                                <Style />
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Region</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                          </Border>
+                          <BackgroundColor>Khaki</BackgroundColor>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <TablixMembers>
+                    <TablixMember>
+                      <Group Name="matrix1_Country">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!Country.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
+                      <SortExpressions>
+                        <SortExpression>
+                          <Value>=Fields!Country.Value</Value>
+                        </SortExpression>
+                      </SortExpressions>
+                      <TablixHeader>
+                        <Size>1in</Size>
+                        <CellContents>
+                          <Textbox Name="Country">
+                            <CanGrow>true</CanGrow>
+                            <KeepTogether>true</KeepTogether>
+                            <Paragraphs>
+                              <Paragraph>
+                                <TextRuns>
+                                  <TextRun>
+                                    <Value>[Region]</Value>
+                                    <Style />
+                                  </TextRun>
+                                </TextRuns>
+                                <Style>
+                                  <TextAlign>Center</TextAlign>
+                                </Style>
+                              </Paragraph>
+                            </Paragraphs>
+                            <rd:DefaultName>Country</rd:DefaultName>
+                            <Style>
+                              <Border>
+                                <Color>LightGrey</Color>
+                              </Border>
+                              <BackgroundColor>LightGreen</BackgroundColor>
+                              <PaddingLeft>2pt</PaddingLeft>
+                              <PaddingRight>2pt</PaddingRight>
+                              <PaddingTop>2pt</PaddingTop>
+                              <PaddingBottom>2pt</PaddingBottom>
+                            </Style>
+                          </Textbox>
+                        </CellContents>
+                      </TablixHeader>
+                      <TablixMembers>
+                        <TablixMember>
+                          <Group Name="matrix1_State">
+                            <GroupExpressions>
+                              <GroupExpression>=Fields!State.Value</GroupExpression>
+                            </GroupExpressions>
+                          </Group>
+                          <SortExpressions>
+                            <SortExpression>
+                              <Value>=Fields!State.Value</Value>
+                            </SortExpression>
+                          </SortExpressions>
+                          <TablixHeader>
+                            <Size>1in</Size>
+                            <CellContents>
+                              <Textbox Name="State">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value>=Fields!State.Value</Value>
+                                        <Style />
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style>
+                                      <TextAlign>Center</TextAlign>
+                                    </Style>
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>State</rd:DefaultName>
+                                <Style>
+                                  <Border>
+                                    <Color>LightGrey</Color>
+                                  </Border>
+                                  <BackgroundColor>LightSteelBlue</BackgroundColor>
+                                  <PaddingLeft>2pt</PaddingLeft>
+                                  <PaddingRight>2pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
+                          <TablixMembers>
+                            <TablixMember>
+                              <Group Name="matrix1_City">
+                                <GroupExpressions>
+                                  <GroupExpression>=Fields!City.Value</GroupExpression>
+                                </GroupExpressions>
+                              </Group>
+                              <SortExpressions>
+                                <SortExpression>
+                                  <Value>=Fields!City.Value</Value>
+                                </SortExpression>
+                              </SortExpressions>
+                              <TablixHeader>
+                                <Size>1in</Size>
+                                <CellContents>
+                                  <Textbox Name="City">
+                                    <CanGrow>true</CanGrow>
+                                    <KeepTogether>true</KeepTogether>
+                                    <Paragraphs>
+                                      <Paragraph>
+                                        <TextRuns>
+                                          <TextRun>
+                                            <Value>=Fields!City.Value</Value>
+                                            <Style />
+                                          </TextRun>
+                                        </TextRuns>
+                                        <Style>
+                                          <TextAlign>Center</TextAlign>
+                                        </Style>
+                                      </Paragraph>
+                                    </Paragraphs>
+                                    <rd:DefaultName>City</rd:DefaultName>
+                                    <Style>
+                                      <Border>
+                                        <Color>LightGrey</Color>
+                                      </Border>
+                                      <BackgroundColor>PaleTurquoise</BackgroundColor>
+                                      <PaddingLeft>2pt</PaddingLeft>
+                                      <PaddingRight>2pt</PaddingRight>
+                                      <PaddingTop>2pt</PaddingTop>
+                                      <PaddingBottom>2pt</PaddingBottom>
+                                    </Style>
+                                  </Textbox>
+                                </CellContents>
+                              </TablixHeader>
+                              <Visibility>
+                                <Hidden>true</Hidden>
+                                <ToggleItem>State</ToggleItem>
+                              </Visibility>
+                              <DataElementOutput>Output</DataElementOutput>
+                              <KeepTogether>true</KeepTogether>
+                            </TablixMember>
+                          </TablixMembers>
+                          <Visibility>
+                            <Hidden>true</Hidden>
+                            <ToggleItem>Country</ToggleItem>
+                          </Visibility>
+                          <DataElementOutput>Output</DataElementOutput>
+                        </TablixMember>
+                      </TablixMembers>
+                      <Visibility>
+                        <Hidden>true</Hidden>
+                        <ToggleItem>Region</ToggleItem>
+                      </Visibility>
+                      <DataElementOutput>Output</DataElementOutput>
+                    </TablixMember>
+                  </TablixMembers>
+                  <DataElementOutput>Output</DataElementOutput>
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <RepeatColumnHeaders>true</RepeatColumnHeaders>
+            <RepeatRowHeaders>true</RepeatRowHeaders>
+            <DataSetName>DataSet1</DataSetName>
+            <Top>0.43in</Top>
+            <Height>1.06in</Height>
+            <Width>6in</Width>
+            <ZIndex>1</ZIndex>
+            <Style />
+          </Tablix>
+        </ReportItems>
+        <Height>1.49in</Height>
+        <Style />
+      </Body>
+      <Width>6in</Width>
+      <Page>
+        <LeftMargin>1in</LeftMargin>
+        <RightMargin>1in</RightMargin>
+        <TopMargin>1in</TopMargin>
+        <BottomMargin>1in</BottomMargin>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="OrderDateMonthName">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>[Order Date].[Month Name].&amp;[January]</Value>
+          <Value>[Order Date].[Month Name].&amp;[February]</Value>
+          <Value>[Order Date].[Month Name].&amp;[March]</Value>
+          <Value>[Order Date].[Month Name].&amp;[April]</Value>
+          <Value>[Order Date].[Month Name].&amp;[June]</Value>
+          <Value>[Order Date].[Month Name].&amp;[July]</Value>
+          <Value>[Order Date].[Month Name].&amp;[December]</Value>
+          <Value>[Order Date].[Month Name].&amp;[August]</Value>
+          <Value>[Order Date].[Month Name].&amp;[May]</Value>
+          <Value>[Order Date].[Month Name].&amp;[November]</Value>
+          <Value>[Order Date].[Month Name].&amp;[October]</Value>
+          <Value>[Order Date].[Month Name].&amp;[September]</Value>
+          <Value>[Order Date].[Month Name].[All]</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Order Date.Month Name</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>OrderDateMonthName</DataSetName>
+          <ValueField>ParameterValue</ValueField>
+          <LabelField>ParameterCaptionIndented</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="DimConsumerDetailsState">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>[Dim Consumer Details].[State].&amp;[Alabama]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Arizona]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Arkansas]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[California]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Connecticut]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Colorado]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Delaware]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[District of Columbia]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Florida]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Georgia]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Illinois]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Indiana]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Iowa]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Kansas]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Kentucky]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Louisiana]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Maryland]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Michigan]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Minnesota]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Massachusetts]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Mississippi]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Missouri]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Nebraska]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Nevada]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[New Hampshire]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[New Jersey]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[New Mexico]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[New York]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[North Carolina]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Ohio]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Oklahoma]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Oregon]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Pennsylvania]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Rhode Island]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[South Dakota]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Tennessee]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Texas]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Utah]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Virginia]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Washington]</Value>
+          <Value>[Dim Consumer Details].[State].&amp;[Wisconsin]</Value>
+          <Value>[Dim Consumer Details].[State].[All]</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>State</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DimConsumerDetailsState</DataSetName>
+          <ValueField>ParameterValue</ValueField>
+          <LabelField>ParameterCaptionIndented</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+  </ReportParameters>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>2</NumberOfColumns>
+      <NumberOfRows>1</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>OrderDateMonthName</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>DimConsumerDetailsState</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <Language>en-US</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>64eedeb0-7ff9-4493-a988-8f1fd4226cf3</rd:ReportID>
+</Report>
