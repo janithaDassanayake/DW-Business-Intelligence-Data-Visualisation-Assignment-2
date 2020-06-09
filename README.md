@@ -1,7 +1,7 @@
 # DW-Business-Intelligence-Data-Visualisation-Assignment-2
 
 
-#1: Data source for the assignment 2
+# 1: Data source for the assignment 2
 ---------------------------------------------
 •	Used the data warehouse you implemented and loaded with data in Assignment 1 as the data source for the assignment 2.  
  
@@ -11,7 +11,7 @@
 
 •	Designed the cube by including necessary measures in fact table(s) and connecting dimensions. 
 
-![Scr
+
 ![Screenshot (254)](https://user-images.githubusercontent.com/53893019/84182493-1adadc80-aaa8-11ea-9a26-441401759867.png)
 
  
@@ -27,9 +27,13 @@ o	Dice
 
 o	Pivot 
  
+ ![Screenshot (215)](https://user-images.githubusercontent.com/53893019/84182946-d26fee80-aaa8-11ea-99aa-dfbb13322259.png)
+![Screenshot (213)](https://user-images.githubusercontent.com/53893019/84182955-d6037580-aaa8-11ea-8a85-b373990adc19.png)
+
 # 4: SSRS Reports
 ---------------------------------------------
 •	Developed and published following reports in SSRS Web Portal. 
+
 o	Report 1: Report with a matrix
 
 o	Report 2: Report with more than one parameter. Parameters should have lists of values. Selection of the value of first parameter, 
