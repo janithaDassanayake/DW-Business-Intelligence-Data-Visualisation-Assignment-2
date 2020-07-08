@@ -3,7 +3,7 @@
 
 # 1: Data source for the assignment 2
 ---------------------------------------------
-•	Used the data warehouse you implemented and loaded with data in Assignment 1 as the data source for the assignment 2.  
+•	Used the data warehouse that i have implemented and loaded with data in Assignment 1 as the data source for the assignment 2.  
  
 # 2: SSAS Cube implementation
 ---------------------------------------------
